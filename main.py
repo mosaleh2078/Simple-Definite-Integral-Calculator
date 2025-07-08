@@ -28,8 +28,10 @@ class Function:
             io_handler(f"File {file} doesn't exist!", 1)
             return 1
         with open(path, 'r') as source:
-            func: str = list(source.read().strip())
-            if len(list) != 1:
+            func: str = [source.read().strip()]
+            print(func)
+            print(len(func))
+            if len(func) != 1:
                 io_handler("Multiple line of equation is not supported!", 1)
                 return 1
             io_handler("Function read successfully", 0)
@@ -125,10 +127,13 @@ _______
         try:
             io_handler("Enter the range of integral:", 3)
             a, b = map(int, input("-> ").split(" ")) # a:min b:max
+            io_handler(f"Range set from {a} to {b}", 0)
             io_handler("Using this equation, first calculate the k and then enter it (|f''(x)| <= k)", 3)
             k = int(input("-> "))
+            io_handler(f"K set to {k}", 0)
             io_handler("Enter the name of equation file", 3)
             file = input("-> ")
+            io_handler(f"File set to {file}", 0)
         except Exception as e:
             io_handler(f"Error: {e}, please enter again ...", 1)
         else:
