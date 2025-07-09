@@ -1,8 +1,8 @@
-import math
-import os
+import numpy as np
 import colorama
 import typing
-import numpy as np
+import math
+import os
 
 # Custom type: allows int or None for return type
 T1 = typing.Union[int, None]
@@ -18,7 +18,7 @@ class Function:
 
         Initializes:
             self.n: number of intervals (set later).
-            self.func: the function expression as string (to be read from file).
+            self.func: the function expression as a string (to be read from a file).
         """
         self.n = 0
         self.func = None
@@ -34,7 +34,7 @@ class Function:
 
         Returns:
             1 if the file doesn't exist or contains more than one line,
-            otherwise None and sets self.func to the read function string.
+            Otherwise, None and sets self.func to the read function string.
         """
         path = os.path.join(os.getcwd(), file)
         if not os.path.exists(path):
@@ -97,7 +97,7 @@ class Function:
 
 def io_handler(message:str, status:int) -> int:
     """
-    Displays a formatted message in the terminal using colorama colors.
+    Displays a formatted message in the terminal using the colorama color scheme.
 
     Parameters:
         message (str): The text to display.
@@ -127,8 +127,8 @@ if __name__ == "__main__":
     Main program logic:
     - Displays an ASCII welcome screen.
     - Takes user input for integral range [a, b], bound k, and filename.
-    - Loads the function from file.
-    - Computes the required number of intervals for desired accuracy.
+    - Loads the function from a file.
+    - Computes the required number of intervals for the desired accuracy.
     - Approximates the integral using the midpoint rule.
     - Displays the result.
     """
