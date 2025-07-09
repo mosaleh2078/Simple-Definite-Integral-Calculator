@@ -95,7 +95,8 @@ n = ceil( sqrt( (k × (b - a)) / 0.00024 ) )
 
 <h2>✍️ Author</h2>
 
-<p>Created by <strong>[Your Name]</strong>. Feel free to modify, contribute, or share feedback.</p>
+<p>Created by <strong>Mohammad Saleh</strong> — 
+<a href="mailto:mosaleh2078@gmail.com">mosaleh2078@gmail.com</a></p>
 
 </body>
 </html>
