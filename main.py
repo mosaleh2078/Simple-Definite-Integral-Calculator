@@ -10,18 +10,31 @@ T1 = typing.Union[int, None]
 class Function:
     def __init__(self,_max:int, _min:int) -> None:
         """
-            Initializes a Function object with a max and min range for integration.
-            Sets self.func to None initially.
+        Initializes a Function object with a given integration range.
+
+        Parameters:
+            _max (int): Upper limit of the integral.
+            _min (int): Lower limit of the integral.
+
+        Initializes:
+            self.n: number of intervals (set later).
+            self.func: the function expression as string (to be read from file).
         """
+        self.n = 0
         self.func = None
         self.max = _max
         self.min = _min
 
     def function_read(self, file:str) -> T1:
         """
-            Reads a function from a text file (single-line equation).
-            If successful, stores the function as a string in self.func.
-            Returns 1 if the file doesn't exist or contains multiple lines.
+        Reads a single-line function string from a given text file.
+
+        Parameters:
+            file (str): The filename containing the function definition.
+
+        Returns:
+            1 if the file doesn't exist or contains more than one line,
+            otherwise None and sets self.func to the read function string.
         """
         path = os.path.join(os.getcwd(), file)
         if not os.path.exists(path):
@@ -29,30 +42,52 @@ class Function:
             return 1
         with open(path, 'r') as source:
             func: str = [source.read().strip()]
-            print(func)
-            print(len(func))
             if len(func) != 1:
                 io_handler("Multiple line of equation is not supported!", 1)
                 return 1
-            io_handler("Function read successfully", 0)
-            self.func = func
+            else:
+                io_handler("Function read successfully", 0)
+                self.func = func[0]
 
     def _function_cal(self, x) -> float:
         """
-            Returns a lambda function that evaluates the stored function string with the given x.
-            This method is intended to be used inside calculate().
+        Evaluates the stored function expression at a given x.
+
+        Parameters:
+            x (float): The value at which to evaluate the function.
+
+        Returns:
+            The result of evaluating the function at x.
+
+        Warning:
+            Uses eval() directly on self.func. Assumes self.func is a valid expression.
         """
-        return lambda x: eval(self.func)
+        return eval(self.func)
+
+    def error_bound(self, k:int) -> int:
+        """
+        Computes the required number of intervals (self.n) for integration
+        based on the maximum second derivative bound `k`, and sets self.n.
+
+        Parameters:
+            k (int): Upper bound for the second derivative of the function.
+
+        Formula used:
+            n = ceil( sqrt( (k * (b - a)) / 0.00024 ) )
+        """
+        self.n = math.ceil(math.sqrt((k * (self.max - self.min)) / 0.00024))
 
     def calculate(self) -> float:
         """
-            Approximates the definite integral of the stored function using the midpoint Riemann sum.
-            The range is divided into 2 intervals, then evaluated at midpoints.
-            Returns the numerical result of the integration.
+        Numerically integrates the stored function over [min, max] using
+        the Midpoint Riemann Sum with `self.n` intervals.
+
+        Returns:
+            The approximate value of the definite integral.
         """
-        delta_x = (self.max - self.min) / 2
+        delta_x: float = (self.max - self.min) / self.n
         arr = np.arange(self.min, self.max + delta_x, delta_x)
-        ranges = np.column_stack((arr[:-1], arr[1:])).tolist()
+        ranges: list = np.column_stack((arr[:-1], arr[1:])).tolist()
         _sum:float = 0.0
         for r in ranges:
             mid = (r[0] + r[1]) / 2
@@ -62,12 +97,18 @@ class Function:
 
 def io_handler(message:str, status:int) -> int:
     """
-        Prints a formatted message to the terminal using colorama, based on the status code:
-        0 → success (green),
-        1 → error (red),
-        2 → warning (yellow),
-        3 → info (light blue),
-        Any other value → returns 1 (invalid).
+    Displays a formatted message in the terminal using colorama colors.
+
+    Parameters:
+        message (str): The text to display.
+        status (int): Determines message type:
+            0 = success (green),
+            1 = error (red),
+            2 = warning (yellow),
+            3 = info (light blue)
+
+    Returns:
+        0 on success, 1 on unknown status.
     """
     if status == 0: # Good
         print(f"[ {colorama.Fore.GREEN}+{colorama.Fore.RESET} ] {message}")
@@ -82,6 +123,15 @@ def io_handler(message:str, status:int) -> int:
     return 0
 
 if __name__ == "__main__":
+    """
+    Main program logic:
+    - Displays an ASCII welcome screen.
+    - Takes user input for integral range [a, b], bound k, and filename.
+    - Loads the function from file.
+    - Computes the required number of intervals for desired accuracy.
+    - Approximates the integral using the midpoint rule.
+    - Displays the result.
+    """
     os.system("clear")
     welcome:str = """
                                                                                     
@@ -142,5 +192,6 @@ _______
     r = func.function_read(file)
     if r == 1:
         exit(1)
+    func.error_bound(k)
     result:float = func.calculate()
     io_handler(f"Result: {result}", 0)
