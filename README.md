@@ -63,7 +63,7 @@ n = ceil( sqrt( (k × (b - a)) / 0.00024 ) )
 
 <hr>
 
-<h2>📝 Equation File Format</h2>
+<h2>Equation File Format</h2>
 
 <p>The equation file must contain one valid Python expression using variable <code>x</code>.</p>
 
