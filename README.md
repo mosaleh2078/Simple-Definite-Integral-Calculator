@@ -5,13 +5,13 @@
 </head>
 <body style="font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 2em auto;">
 
-<h1>🧮 Definite Integral Calculator (Midpoint Rule)</h1>
+<h1>Definite Integral Calculator (Midpoint Rule)</h1>
 
 <p>This Python program approximates the <strong>definite integral</strong> of a single-variable mathematical function over a user-defined range using the <strong>Midpoint Riemann Sum</strong> method.</p>
 
 <hr>
 
-<h2>📦 How to Use</h2>
+<h2>How to Use</h2>
 
 <ol>
     <li>Ensure Python 3.6+ is installed along with <code>numpy</code> and <code>colorama</code> packages.</li>
@@ -32,7 +32,7 @@
 
 <hr>
 
-<h2>📐 Method Used</h2>
+<h2>Method Used</h2>
 
 <p>The code uses the <strong>Midpoint Riemann Sum</strong> for numerical integration:</p>
 
@@ -53,7 +53,7 @@ n = ceil( sqrt( (k × (b - a)) / 0.00024 ) )
 
 <hr>
 
-<h2>⚠️ Limitations</h2>
+<h2>Limitations</h2>
 
 <ul>
     <li>Only supports <strong>single-line equations</strong>.</li>
@@ -73,7 +73,7 @@ n = ceil( sqrt( (k × (b - a)) / 0.00024 ) )
 
 <hr>
 
-<h2>📋 Requirements</h2>
+<h2>Requirements</h2>
 
 <ul>
     <li>Python 3.6+</li>
@@ -86,13 +86,13 @@ n = ceil( sqrt( (k × (b - a)) / 0.00024 ) )
 
 <hr>
 
-<h2>📄 License</h2>
+<h2>License</h2>
 
 <p>This project is free for educational and non-commercial use. No warranty is provided.</p>
 
 <hr>
 
-<h2>✍️ Author</h2>
+<h2>Author</h2>
 
 <p>Created by <strong>Mohammad Saleh</strong> — 
 <a href="mailto:mosaleh2078@gmail.com">mosaleh2078@gmail.com</a></p>
